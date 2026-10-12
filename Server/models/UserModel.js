@@ -11,10 +11,8 @@ const UserSchema = new mongoose.Schema({
     resetOtp: {type: String, default: ''},
     resetOtpExpiresAt: {type: Number, default: 0},
     resetOtpSentAt: {type: Number, default: 0},
-    role: {type: [String], enum: ['admin','freeUser','paidUser']},
+    role: {type: [String], enum: ['admin','freeUser','paidUser'], default: ['freeUser']},
     isMember: {type: Boolean, default: false},
-    
-    
 
 });
 const UserModel = mongoose.models.User || mongoose.model('User', UserSchema);
