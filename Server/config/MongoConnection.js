@@ -1,10 +1,10 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const path = require("node:path");
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import { fileURLToPath } from "node:url";
 
 async function connectDB() {
   dotenv.config({
-    path: path.join(__dirname, "..", ".env"),
+    path: fileURLToPath(new URL("../.env", import.meta.url)),
     quiet: true,
   });
 
@@ -23,5 +23,5 @@ async function connectDB() {
   }
 }
 
-module.exports = connectDB;
+export default connectDB;
 

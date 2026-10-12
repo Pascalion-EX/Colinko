@@ -1,12 +1,13 @@
-const express = require("express");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const dotenv = require("dotenv");
-const path = require("node:path");
-const mongoose = require("mongoose");
-const connectDB = require("./config/MongoConnection");
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import mongoose from "mongoose";
+import connectDB from "./config/MongoConnection.js";
 
-dotenv.config({ path: path.join(__dirname, ".env"), quiet: true });
+dotenv.config({ path: fileURLToPath(new URL("./.env", import.meta.url)), quiet: true });
 
 const app = express();
 
@@ -50,11 +51,11 @@ async function startServer() {
   }
 }
 
-if (require.main === module) {
+if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url) {
   startServer().catch((error) => {
     console.error("Server startup failed:", error.message);
     process.exitCode = 1;
   });
 }
 
-module.exports = { app, startServer };
+export { app, startServer };
